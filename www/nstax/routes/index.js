@@ -4,20 +4,20 @@
  */
 
 exports.index = function(req, res, next){
-   req.app.get('cassandra').cql('SELECT * FROM users LIMIT 10' , function(err, users){ //LIMIT 10
+   req.app.get('cassandra').cql('SELECT * FROM schools LIMIT 10' , function(err, schools){ //LIMIT 10
      if(err){
        return next(err);
      }
 
-    res.render('index', { title: 'Users', users: users });
+    res.render('index', { title: 'Schools', schools: schools });
   });
 };
 
 exports.new = function(req, res, next){
-  var insert = 'UPDATE users SET first_name=?, last_name=?, active=1 WHERE email=?',
-      params = [req.body.first_name, req.body.last_name, req.body.email];
+  var insert = 'INSERT into schools(state,email_domain,active, school_name, city) values (?, ?, 1, ?, ?)',
+      params = [req.body.state, req.body.email_domain, req.body.school_name, req.body.city];
 
-  req.app.get('cassandra').cql(insert,  params, function(err, users){
+  req.app.get('cassandra').cql(insert,  params, function(err, schools){
     if(err){
       return next(err);
     }
@@ -27,10 +27,10 @@ exports.new = function(req, res, next){
 };
 
 exports.delete = function(req, res, next){
-  var remove = 'UPDATE users SET active=0 WHERE email=?',
-      params = [req.body.email];
+  var remove = 'UPDATE schools SET active=0 WHERE school_name=? and city=?',
+      params = [req.body.school_name, req.body.city];
 
-  req.app.get('cassandra').cql(remove,  params, function(err, users){
+  req.app.get('cassandra').cql(remove,  params, function(err, schools){
     if(err){
       return next(err);
     }
