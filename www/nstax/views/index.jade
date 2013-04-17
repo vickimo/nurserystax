@@ -14,14 +14,15 @@ block content
     tbody
       each user in users
         tr
-          td #{user.get('first_name').value}
-          td #{user.get('last_name').value}
-          td #{user.get('email').value}
-          td
-            form(action='/', method='post')
-              input(id='_method', type='hidden', name='_method', value='delete')
-              input(id='email', name='email', type='hidden', value="#{user.get('email').value}")
-              input(type='submit',value='Remove User',data-transition='fade', data-theme='c')
+          if user.get('active').value == 1
+            td #{user.get('first_name').value}
+            td #{user.get('last_name').value}
+            td #{user.get('email').value}
+            td
+              form(action='/', method='post')
+                input(id='_method', type='hidden', name='_method', value='delete')
+                input(id='email', name='email', type='hidden', value="#{user.get('email').value}")
+                input(type='submit',value='Remove User',data-transition='fade', data-theme='c')
 
   h2 New User
   form(action='/',method='post')

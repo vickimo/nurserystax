@@ -27,7 +27,7 @@ var helenus = require('helenus'),
     pool = new helenus.ConnectionPool({
       hosts      : ['localhost:9160'],
       keyspace   : 'nursery',
-      cqlVersion : '2.0.0'
+      cqlVersion : '3.0.0'
     });
 
 pool.connect(function(err){
