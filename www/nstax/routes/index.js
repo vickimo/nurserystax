@@ -7,7 +7,7 @@ exports.index = function(req,res,next) {
 	res.render('index', { title: 'Improving Communication Among Parents and Nurseries'});
 };
 
-exports.create_school = function(req, res, next){
+exports.list_schools = function(req, res, next){
    req.app.get('cassandra').cql('SELECT * FROM schools LIMIT 10' , function(err, schools){ //LIMIT 10
      if(err){
        return next(err);
@@ -17,7 +17,7 @@ exports.create_school = function(req, res, next){
   });
 };
 
-exports.new = function(req, res, next){
+exports.make_school = function(req, res, next){
   var insert = 'INSERT into schools(state,email_domain,active, school_name, city) values (?, ?, 1, ?, ?)',
       params = [req.body.state, req.body.email_domain, req.body.school_name, req.body.city];
 
@@ -26,7 +26,7 @@ exports.new = function(req, res, next){
       return next(err);
     }
 
-    res.redirect('/');
+    res.redirect('/school');
   });
 };
 
@@ -41,4 +41,10 @@ exports.delete = function(req, res, next){
 
     res.redirect('/');
   });
+};
+
+exports.choose_school = function(req, res, next){
+
+  res.render('select_class', { school: req.body.school_name, city: req.body.city });
+  
 };

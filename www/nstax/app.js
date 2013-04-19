@@ -53,9 +53,9 @@ pool.connect(function(err){
   });
 
   app.get('/', routes.index);
-  app.get('/create', routes.create_school);
-  app.post('/create', routes.new);
-  app.delete('/create', routes.delete);
+  app.get('/school', routes.list_schools);
+  app.post('/school', routes.list_schools);
+  app.post('/class', routes.make_school);
 
   http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

@@ -20,18 +20,18 @@ block content
             td #{school.get('state').value}
             td #{school.get('email_domain').value}
             td
-              form(action='/class', method='post')
+              form(action='/create', method='post')
                 input(id='_method', type='hidden', name='_method', value='choose_school')
                 input(id='school_name', name='school_name', type='hidden', value="#{school.get('school_name').value}")
                 input(id='city', name='city', type='hidden', value="#{school.get('city').value}")
-                input(type='submit',value='Choose This Nursery',data-transition='fade', data-theme='c')
+                input(type='submit',value='Choose This School',data-transition='fade', data-theme='c')
 
-  h2 Create a New Nursery!
-  form(action='/class',method='post')
+  h2 Create a New School!
+  form(action='/',method='post')
     tbody
       tr
         td: input(id='school_name',type='text',value='',placeholder='My School',name='school_name')
         td: input(id='city',type='text',value='',placeholder='My City',name='city')
         td: input(id='state',type='text',value='',placeholder='My State',name='state')
         td: input(id='email_domain',type='text',value='',placeholder='@myschool.com',name='email_domain')
-        td: input(type='submit',value='Add Nursery',data-transition='fade', data-theme='c')
+        td: input(type='submit',value='Add School',data-transition='fade', data-theme='c')
