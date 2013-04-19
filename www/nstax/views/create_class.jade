@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1 Nursery: #{school}
+  h1 City: #{city}
+
+  table
+    thead
+
+    tbody
+      each class in classes
+        tr
+          if class.get('active').value == 1
+            td #{class.get('teacher_name').value}
+            td #{class.get('min_age').value} - #{class.get('max_age').value}
+            td #{class.get('est_enrollment').value}
+            td #{class.get('class_year').value} - #{class.get('class_year').value + 1}
+            td
+              form(action='/class', method='post')
+
+                input(type='submit',value='Choose This Class',data-transition='fade', data-theme='c')
+

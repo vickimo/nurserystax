@@ -18,16 +18,20 @@ exports.list_schools = function(req, res, next){
 };
 
 exports.make_school = function(req, res, next){
-  var insert = 'INSERT into schools(state,email_domain,active, school_name, city) values (?, ?, 1, ?, ?)',
-      params = [req.body.state, req.body.email_domain, req.body.school_name, req.body.city];
+  if (req.body.email_domain) {
+	  var insert = 'INSERT into schools(state,email_domain,active, school_name, city) values (?, ?, 1, ?, ?)',
+	      params = [req.body.state, req.body.email_domain, req.body.school_name, req.body.city];
 
-  req.app.get('cassandra').cql(insert,  params, function(err, schools){
-    if(err){
-      return next(err);
-    }
+	  req.app.get('cassandra').cql(insert,  params, function(err, schools){
+	    if(err){
+	      return next(err);
+	    }
 
-    res.redirect('/school');
-  });
+	  });
+	}
+	process.stdout.write(req.body.school_name);
+	process.stdout.write(req.body.city);
+  res.render('create_class', { title: 'this is the school', school: req.body.school_name, city: req.body.city });
 };
 
 exports.delete = function(req, res, next){
@@ -41,10 +45,4 @@ exports.delete = function(req, res, next){
 
     res.redirect('/');
   });
-};
-
-exports.choose_school = function(req, res, next){
-
-  res.render('select_class', { school: req.body.school_name, city: req.body.city });
-  
 };

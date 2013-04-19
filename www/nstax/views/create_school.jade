@@ -21,7 +21,6 @@ block content
             td #{school.get('email_domain').value}
             td
               form(action='/class', method='post')
-                input(id='_method', type='hidden', name='_method', value='choose_school')
                 input(id='school_name', name='school_name', type='hidden', value="#{school.get('school_name').value}")
                 input(id='city', name='city', type='hidden', value="#{school.get('city').value}")
                 input(type='submit',value='Choose This Nursery',data-transition='fade', data-theme='c')
