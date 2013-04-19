@@ -31,7 +31,13 @@ exports.make_school = function(req, res, next){
 	}
 	process.stdout.write(req.body.school_name);
 	process.stdout.write(req.body.city);
-  res.render('create_class', { title: 'this is the school', school: req.body.school_name, city: req.body.city });
+   req.app.get('cassandra').cql('SELECT * FROM classes LIMIT 10' , function(err, all_classes){ //LIMIT 10
+     if(err){
+       return next(err);
+     }
+
+    res.render('create_class', { title: 'this title',school: req.body.school_name, city: req.body.city, all_classes: all_classes });
+  });
 };
 
 exports.delete = function(req, res, next){

@@ -8,15 +8,14 @@ block content
     thead
 
     tbody
-      each class in classes
+      each one in all_classes
         tr
-          if class.get('active').value == 1
-            td #{class.get('teacher_name').value}
-            td #{class.get('min_age').value} - #{class.get('max_age').value}
-            td #{class.get('est_enrollment').value}
-            td #{class.get('class_year').value} - #{class.get('class_year').value + 1}
+          if one.get('active').value == 1
+            td #{one.get('teacher_name').value}
+            td #{one.get('min_age').value} - #{one.get('max_age').value}
+            td #{one.get('est_enrollment').value}
+            td #{one.get('class_year').value} - #{one.get('class_year').value + 1}
             td
               form(action='/class', method='post')
 
                 input(type='submit',value='Choose This Class',data-transition='fade', data-theme='c')
-
