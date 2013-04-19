@@ -3,13 +3,17 @@
  * GET users listing.
  */
 
-exports.index = function(req, res, next){
+exports.index = function(req,res,next) {
+	res.render('index', { title: 'Improving Communication Among Parents and Nurseries'});
+};
+
+exports.create_school = function(req, res, next){
    req.app.get('cassandra').cql('SELECT * FROM schools LIMIT 10' , function(err, schools){ //LIMIT 10
      if(err){
        return next(err);
      }
 
-    res.render('index', { title: 'Schools', schools: schools });
+    res.render('create_school', { title: 'Schools', schools: schools });
   });
 };
 

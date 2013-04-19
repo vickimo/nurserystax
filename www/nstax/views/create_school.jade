@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1= title
+
+  table
+    thead
+      tr
+       th School Name
+       th City
+       th State
+       th Email Domain
+       th &nbsp;
+    tbody
+      each school in schools
+        tr
+          if school.get('active').value == 1
+            td #{school.get('school_name').value}
+            td #{school.get('city').value}
+            td #{school.get('state').value}
+            td #{school.get('email_domain').value}
+            td
+              form(action='/', method='post')
+                input(id='_method', type='hidden', name='_method', value='delete')
+                input(id='school_name', name='school_name', type='hidden', value="#{school.get('school_name').value}")
+                input(id='city', name='city', type='hidden', value="#{school.get('city').value}")
+                input(type='submit',value='Remove School',data-transition='fade', data-theme='c')
+
+  h2 New School
+  form(action='/',method='post')
+    tbody
+      tr
+        td: input(id='school_name',type='text',value='',placeholder='My School',name='school_name')
+        td: input(id='city',type='text',value='',placeholder='My City',name='city')
+        td: input(id='state',type='text',value='',placeholder='My State',name='state')
+        td: input(id='email_domain',type='text',value='',placeholder='@myschool.com',name='email_domain')
+        td: input(type='submit',value='Add School',data-transition='fade', data-theme='c')
