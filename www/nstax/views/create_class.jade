@@ -1,11 +1,17 @@
 extends layout
 
 block content
-  h1 Nursery: #{school}
-  h1 City: #{city}
+  h2 Nursery: #{school}
+  h2 City: #{city}
 
   table
     thead
+      tr
+       th Teacher Name
+       th Age Range
+       th Estimated Enrollment
+       th Class Year
+       th &nbsp;
 
     tbody
       each one in all_classes
@@ -14,8 +20,33 @@ block content
             td #{one.get('teacher_name').value}
             td #{one.get('min_age').value} - #{one.get('max_age').value}
             td #{one.get('est_enrollment').value}
-            td #{one.get('class_year').value} - #{one.get('class_year').value + 1}
+            td #{one.get('class_year_start').value} - #{one.get('class_year_end').value}
             td
-              form(action='/class', method='post')
-
+              form(action='/enroll', method='post')
+                input(id='class_id', name='class_id', type='hidden', value="#{one.get('class_id').value}")
                 input(type='submit',value='Choose This Class',data-transition='fade', data-theme='c')
+  h2 Create a New Class!
+  form(action='/enroll',method='post')
+    table
+      thead
+        tr
+         th Teacher Name
+         th Teacher Email
+         th Class Year Start
+         th Class Year End
+         th Minimum Age
+         th Maximum Age
+         th Estimated Enrollment
+         th &nbsp;
+      tbody
+        tr
+          input(id='school_name', name='school_name', type='hidden', value="#{school}")
+          input(id='city', name='city', type='hidden', value="#{city}")
+          td: input(id='teacher_name',type='text',value='',placeholder='Katie Ross',name='teacher_name')
+          td: input(id='teacher_email',type='text',value='',placeholder='katie@myschool.com',name='teacher_email')
+          td: input(id='class_year_start',type='text',value='',placeholder='2012',name='class_year_start')
+          td: input(id='class_year_end',type='text',value='',placeholder='2013',name='class_year_end')
+          td: input(id='min_age',type='text',value='',placeholder='1.5',name='min_age')
+          td: input(id='max_age',type='text',value='',placeholder='4',name='max_age')
+          td: input(id='est_enrollment',type='text',value='',placeholder='20',name='est_enrollment')
+          td: input(type='submit',value='Add Class',data-transition='fade', data-theme='c')
